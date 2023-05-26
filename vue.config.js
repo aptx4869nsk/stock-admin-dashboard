@@ -15,27 +15,55 @@ const { ElementPlusResolver } = require("unplugin-vue-components/resolvers");
 module.exports = {
   transpileDependencies: process.env.NODE_ENV === "development",
   productionSourceMap: false, // 禁用生产环境的源映射
+
+  devServer: {
+    port: 8080,
+    hot: true,
+    open: true, // 服务启动后自动打开浏览器
+    proxy: {
+      "/admin": {
+        target: "http://192.168.1.3:8000/admin", // //代理地址，这里设置的地址会代替axios中设置的baseURL
+        changeOrigin: true,
+        pathRewrite: { "^/admin": "/" }, // 重写请求路径，去掉 '/api' 前缀
+      },
+    },
+    client: {
+      // 禁用错误覆盖
+      overlay: false,
+      // overlay: {
+      //   errors: false,
+      //   warnings: false,
+      //   runtimeErrors: false,
+      // },
+    },
+  },
   // 其他公共配置...
   configureWebpack: {
     // 公共的 Webpack 配置...
+    resolve: {
+      alias: {
+        "@intlify/vite-plugin-vue-i18n": "vue-i18n/dist/vue-i18n.cjs.js",
+      },
+    },
+    // stats: "errors-only",
   },
   chainWebpack: (config) => {
-    if (process.env.NODE_ENV === "development") {
-      // 开发环境的 Webpack 配置
-      config.devServer
-        .port(8080)
-        .hot(true)
-        .open(true) // 服务启动后自动打开浏览器
-        .proxy({
-          // "/api": {
-          //   target: "http://api.example.com", // 将请求代理到后端服务器
-          //   changeOrigin: true,
-          //   pathRewrite: { "^/api": "" }, // 重写请求路径，去掉 '/api' 前缀
-          // },
-        })
-        .end();
-      config.devtool("source-map");
-    }
+    // if (process.env.NODE_ENV === "development") {
+    //   // 开发环境的 Webpack 配置
+    //   config.devServer
+    //     .port(8080)
+    //     .hot(true)
+    //     .open(true) // 服务启动后自动打开浏览器
+    //     .proxy({
+    //       "/admin": {
+    //         target: "http://192.168.1.3:8000/admin", // //代理地址，这里设置的地址会代替axios中设置的baseURL
+    //         changeOrigin: true,
+    //         pathRewrite: { "^/admin": "/" }, // 重写请求路径，去掉 '/api' 前缀
+    //       },
+    //     })
+    //     .end();
+    //   config.devtool("source-map");
+    // }
 
     if (process.env.NODE_ENV === "production") {
       // 开发环境的 Webpack 配置
