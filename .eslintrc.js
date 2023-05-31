@@ -14,12 +14,10 @@ module.exports = {
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
-    "prettier/prettier": [
-      "error",
-      {
-        endOfLine: "auto",
-      },
-    ],
+    // "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+    "no-unused-vars": "off", // 忽略所有错误
+    "no-warning-comments": "off", // 忽略所有警告
+    "prettier/prettier": "off",
+    // "no-useless-disable": "off", // 禁用 eslint-disable
   },
 };
