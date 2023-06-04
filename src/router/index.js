@@ -1,30 +1,3 @@
-<<<<<<< HEAD
-import { createRouter, createWebHistory } from "vue-router";
-import Login from "../views/LoginPage/Login.vue";
-
-const routes = [
-  {
-    path: "/",
-    name: "Login",
-    component: Login,
-  },
-  {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
-  },
-];
-
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes,
-});
-
-=======
 /**
  * @description 所有人可使用的参数配置列表
  * @params hideMenu: 是否隐藏当前路由结点不在导航中展示
@@ -44,7 +17,7 @@ import System from "@/router/modules/system";
 // 引入modules
 import Dashboard from "@/router/modules/dashboard";
 import Document from "@/router/modules/document";
-
+import Stocks from "@/router/modules/stocks";
 /**
  * @name 初始化必须要的路由
  * @description 使用reactive属性使得modules可以在路由菜单里面实时响应，搞定菜单回显的问题
@@ -59,7 +32,7 @@ const router = createRouter({
   routes,
 });
 
-let asyncRoutes = [...Dashboard, ...Document]; //
+let asyncRoutes = [...Dashboard, ...Document, ...Stocks];
 
 // 动态路由的权限新增，供登录后调用
 export function addRoutes() {
@@ -115,5 +88,4 @@ router.afterEach((to, _from) => {
 
 export { modules };
 
->>>>>>> dev
 export default router;

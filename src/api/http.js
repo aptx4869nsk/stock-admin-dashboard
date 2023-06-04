@@ -40,7 +40,7 @@ class Http {
         }
       },
       (error) => {
-        console.log(error); // for debug
+        console.log("error >>> ", error); // for debug
         const badMessage = error.message || error;
         const code = parseInt(
           badMessage

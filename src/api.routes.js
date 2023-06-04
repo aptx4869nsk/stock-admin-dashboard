@@ -1,5 +1,7 @@
 class Api {
-  static login = "/admin/login";
+  static login = "/user/login";
+
+  static stocks = "/stock/cn/stocks";
 }
 
 export default Api;

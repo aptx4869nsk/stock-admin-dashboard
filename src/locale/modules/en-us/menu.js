@@ -3,6 +3,7 @@ export default {
     dashboard: "仪表盘",
     account: "账户管理",
     document: "文档管理",
+    user:"user"
   },
   submenu: {
     account: {

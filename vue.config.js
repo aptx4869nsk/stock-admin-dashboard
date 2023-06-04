@@ -4,7 +4,6 @@ const CompressionPlugin = require("compression-webpack-plugin"); // 使用 Compr
 const AutoImport = require("unplugin-auto-import/webpack");
 const Components = require("unplugin-vue-components/webpack");
 const { ElementPlusResolver } = require("unplugin-vue-components/resolvers");
-const webpack = require("webpack");
 
 /**
  * config.devtool 是 Webpack 的配置选项之一，用于指定生成 Source Map 的方式。
@@ -20,10 +19,10 @@ module.exports = {
   devServer: {
     port: 8080,
     hot: true,
-    open: false, // 服务启动后自动打开浏览器
+    open: true, // 服务启动后自动打开浏览器
     proxy: {
       "/admin": {
-        target: "http://localhost:8000/admin", // //代理地址，这里设置的地址会代替axios中设置的baseURL
+        target: "http://192.168.0.254:8000/admin", // //代理地址，这里设置的地址会代替axios中设置的baseURL
         changeOrigin: true,
         pathRewrite: { "^/admin": "/" }, // 重写请求路径，去掉 '/api' 前缀
       },
@@ -43,17 +42,29 @@ module.exports = {
     // 公共的 Webpack 配置...
     resolve: {
       alias: {
-        "particles.js": path.resolve(__dirname, "node_modules/particles.js"), // 设置 particles.js 的别名
+        "@intlify/vite-plugin-vue-i18n": "vue-i18n/dist/vue-i18n.cjs.js",
       },
     },
-    plugins: [
-      new webpack.DefinePlugin({
-        __VUE_I18N_FULL_INSTALL__: JSON.stringify(false),
-        __VUE_I18N_LEGACY_API__: JSON.stringify(false),
-      }),
-    ],
+    // stats: "errors-only",
   },
   chainWebpack: (config) => {
+    // if (process.env.NODE_ENV === "development") {
+    //   // 开发环境的 Webpack 配置
+    //   config.devServer
+    //     .port(8080)
+    //     .hot(true)
+    //     .open(true) // 服务启动后自动打开浏览器
+    //     .proxy({
+    //       "/admin": {
+    //         target: "http://192.168.1.3:8000/admin", // //代理地址，这里设置的地址会代替axios中设置的baseURL
+    //         changeOrigin: true,
+    //         pathRewrite: { "^/admin": "/" }, // 重写请求路径，去掉 '/api' 前缀
+    //       },
+    //     })
+    //     .end();
+    //   config.devtool("source-map");
+    // }
+
     if (process.env.NODE_ENV === "production") {
       // 开发环境的 Webpack 配置
       //  进行代码压缩和混淆

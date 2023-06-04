@@ -20,6 +20,7 @@ const locale = lang.indexOf("en") !== -1 ? "en-US" : "zh-CN";
 const i18n = createI18n({
   locale: "zh-CN", //locale, // 当前语言
   fallbackLocale: "zh-CN", // 回退语言，默认中文
+  legacy: false,
   messages, // 加载的语言包
   __VUE_I18N_FULL_INSTALL__: false, // Vue I18n 的安装将不会自动注册官方提供的插件，如日期时间格式化、数字格式化等
   __VUE_I18N_LEGACY_API__: false, // 以支持 Vue 3.x 的 Composition API 风格的代码; 例 useI18n、useMessages

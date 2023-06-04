@@ -3,11 +3,7 @@
     <div class="container">
       <div class="form">
         <div class="header">
-          <img
-            src="@/assets/images/auth/profile_bg.png"
-            alt
-            style="width: 380px"
-          />
+          <img src="@/assets/images/auth/profile_bg.png" alt style="width: 380px" />
           <div class="userImg">
             <img
               src="@/assets/images/auth/user.png"
@@ -18,11 +14,7 @@
         </div>
         <div class="formPage">
           <div class="topInput">
-            <el-input
-              :placeholder="$t('message.system.userName')"
-              size="large"
-              v-model="form.name"
-            >
+            <el-input :placeholder="$t('message.system.userName')" size="large" v-model="form.name">
               <template #prefix>
                 <el-icon class="icon">
                   <User />
@@ -46,13 +38,13 @@
           </div>
           <div style="margin-top: 20px; margin-bottom: -30px">
             <el-checkbox size="large" />
-            <span style="font-size: 16px; margin-left: 5px">{{
+            <span style="font-size: 16px; margin-left: 5px">
+              {{
               $t("message.system.rememberMe")
-            }}</span>
+              }}
+            </span>
           </div>
-          <div class="loginBtn" @click="submit()">
-            {{ $t("message.system.login") }}
-          </div>
+          <div class="loginBtn" @click="submit()">{{ $t("message.system.login") }}</div>
         </div>
       </div>
     </div>
@@ -73,7 +65,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const form = reactive({
-      name: "super_admin",
+      name: "admin",
       password: "123456",
       loading: false,
     });
@@ -105,6 +97,8 @@ export default defineComponent({
           name: form.name,
           password: form.password,
         };
+
+        console.log("params >>> ", params);
         store
           .dispatch("user/login", params)
           .then(async () => {
@@ -181,12 +175,11 @@ div {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 130px;
-  padding: 300px;
+  margin: 0px auto;
   width: 100%;
   height: 100%;
   background-size: 100%;
-  position: absolute;
+  position: relative;
 }
 .form {
   padding: 32px 0 24px;
